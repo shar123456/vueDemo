@@ -1,18 +1,32 @@
-# Vue 3 + TypeScript + Vite
+# Vue 3 + TypeScript + Vite+ Element Plus +sass
 
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+element-plus 自动导入
+pnpm i element-plus
+首先按照插件：
+pnpm install -D unplugin-vue-components unplugin-auto-import
 
-## Recommended IDE Setup
+导入：
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import {ElementPlusResolver} from 'unplugin-vue-components/resolvers'
 
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
 
-## Type Support For `.vue` Imports in TS
+配置：
+plugins{
+AutoImport({resolvers:[ElementPlusResolver()]}),
+Components({resolvers:[ElementPlusResolver()]})
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
+element plus 图标的使用
+安装：
+pnpm install @element-plus/icons-vue
 
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
+main.ts 里注册：
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+const app=createApp(App)
+for(const [key,component] of Object.entries(ElementPlusIconsVue)){
+app.component(key,component)
+}
 
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
+
+安装路由：
+pnpm install vue-router@4
